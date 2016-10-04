@@ -9,6 +9,9 @@ public class User {
     @GeneratedValue
     int id;
 
+//    @ManyToOne
+//    Event event;
+
     public int getId() {
         return id;
     }
@@ -41,9 +44,18 @@ public class User {
 
     public User() {
     }
+//
+//    public Event getEvent() {
+//        return event;
+//    }
+//
+//    public void setEvent(Event event) {
+//        this.event = event;
+//    }
 
     public User(String name, String password) {
         this.name = name;
         this.password = password;
+//        this.event = event;
     }
 }
