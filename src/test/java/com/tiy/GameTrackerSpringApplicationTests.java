@@ -42,6 +42,9 @@ public class GameTrackerSpringApplicationTests {
 		logger.warn("testContactRequest() - warn");
 		logger.error("testContactRequest() - error");
 
+
+
+
 		User testUser = null;
 		User dbUser = null;
 

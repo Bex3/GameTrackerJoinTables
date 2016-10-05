@@ -14,6 +14,7 @@ package com.tiy;
 
         import javax.servlet.http.HttpServletRequest;
         import javax.servlet.http.HttpServletResponse;
+        import java.util.Enumeration;
 
 @Configuration
 public class TIYRequestInterceptor extends HandlerInterceptorAdapter {
@@ -29,6 +30,13 @@ public class TIYRequestInterceptor extends HandlerInterceptorAdapter {
         logger.debug("Response = " + response);
         logger.debug("Handler = " + handler);
 
+        Enumeration<String> headerNames = request.getHeaderNames();
+        while (headerNames.hasMoreElements()){
+            String headerName = headerNames.nextElement();
+            logger.debug("Header name =" + headerName);
+            logger.debug("Header value = " + request.getHeader(headerName));
+        }
+
         return true;
     }
 
@@ -42,6 +50,11 @@ public class TIYRequestInterceptor extends HandlerInterceptorAdapter {
         logger.debug("Response = " + response);
         logger.debug("Handler = " + handler);
         logger.debug("ModelAndView = " + modelAndView);
+
+        for (String headerName : response.getHeaderNames()){
+            logger.debug("Header name =" + headerName);
+            logger.debug("Header value = " + response.getHeader(headerName));
+        }
 
     }
 }
