@@ -3,6 +3,8 @@ package com.tiy;
 import org.hibernate.annotations.SourceType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -31,19 +33,38 @@ public class GameTrackerSpringApplicationTests {
 	public void contextLoads() {
 	}
 
+	Logger logger = LoggerFactory.getLogger(this.getClass());
+
 	@Test
 	public void testCreateUser(){
-		User testUser = new User ("test-user", "test-password");
-		userRepo.save(testUser);
-		System.out.println("Created user with Id" + testUser.getId());
+		logger.debug("testContactRequest() - debug");
+		logger.info("testContactRequest() - info");
+		logger.warn("testContactRequest() - warn");
+		logger.error("testContactRequest() - error");
 
-		User dbUser = userRepo.findOne(testUser.getId());
-		assertNotNull(dbUser);
+		User testUser = null;
+		User dbUser = null;
 
+		try {
 
-		userRepo.delete(testUser.getId());
-		dbUser = userRepo.findOne(testUser.getId());
-		assertNull(dbUser);
+			testUser = new User("test-user121", "test-password121");
+			userRepo.save(testUser);
+			System.out.println("Created user with Id" + testUser.getId());
+
+			dbUser = userRepo.findOne(testUser.getId());
+			assertNotNull(dbUser);
+
+		} finally {
+			if (testUser!= null) {
+				userRepo.delete(testUser.getId());
+			}
+			if (dbUser != null) {
+				dbUser = userRepo.findOne(testUser.getId());
+//				assertNull(dbUser);
+			}
+
+		}
+
 	}
 	@Test
 	public void testCreateEvent(){
